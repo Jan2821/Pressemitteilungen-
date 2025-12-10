@@ -42,7 +42,6 @@ const App: React.FC = () => {
       // Initialize PDF (A4 size, mm units)
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = 210; // A4 width in mm
-      const pdfHeight = 297; // A4 height in mm
       
       // Calculate image height to maintain aspect ratio within PDF width
       const imgProps = pdf.getImageProperties(imgData);
