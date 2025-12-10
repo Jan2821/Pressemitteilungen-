@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { PressReleaseData, GeneratorType } from '../types';
 import { generatePRContent } from '../services/geminiService';
-import { Wand2, Loader2, RefreshCw, Printer } from 'lucide-react';
+import { Wand2, Loader2, RefreshCw, Download } from 'lucide-react';
 
 interface EditorFormProps {
   data: PressReleaseData;
   onChange: (data: PressReleaseData) => void;
-  onPrint: () => void;
+  onDownload: () => void;
+  isDownloading: boolean;
 }
 
-export const EditorForm: React.FC<EditorFormProps> = ({ data, onChange, onPrint }) => {
+export const EditorForm: React.FC<EditorFormProps> = ({ data, onChange, onDownload, isDownloading }) => {
   const [loading, setLoading] = useState<GeneratorType | null>(null);
   const [aiPrompt, setAiPrompt] = useState("");
   const [activeAiField, setActiveAiField] = useState<GeneratorType | null>(null);
@@ -106,10 +107,21 @@ export const EditorForm: React.FC<EditorFormProps> = ({ data, onChange, onPrint 
               📝 Editor
             </h2>
             <button 
-              onClick={onPrint}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
+              onClick={onDownload}
+              disabled={isDownloading}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 disabled:bg-blue-400 transition-colors flex items-center gap-2 font-medium"
             >
-              <Printer size={18} /> Drucken / PDF
+              {isDownloading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Erstelle PDF...
+                </>
+              ) : (
+                <>
+                  <Download size={18} />
+                  PDF herunterladen
+                </>
+              )}
             </button>
         </div>
 
