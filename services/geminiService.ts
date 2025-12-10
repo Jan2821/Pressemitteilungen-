@@ -2,10 +2,11 @@ import { GoogleGenAI } from "@google/genai";
 import { GeneratorType } from "../types";
 
 // Initialize Gemini client
-// We create a new instance per call in the component usually to handle key changes, 
-// but here we use the environment key directly as per instructions.
-// Use process.env.API_KEY directly as per guidelines.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// We force the type to string here because we know it will be injected by Vite during build
+// and we want to satisfy TypeScript's strict null checks.
+const apiKey = process.env.API_KEY as string;
+
+const ai = new GoogleGenAI({ apiKey: apiKey });
 
 const MODEL_NAME = 'gemini-2.5-flash';
 
