@@ -1,12 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
 import { GeneratorType } from "../types";
 
-const apiKey = process.env.API_KEY;
-
 // Initialize Gemini client
 // We create a new instance per call in the component usually to handle key changes, 
 // but here we use the environment key directly as per instructions.
-const ai = new GoogleGenAI({ apiKey: apiKey });
+// Use process.env.API_KEY directly as per guidelines.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const MODEL_NAME = 'gemini-2.5-flash';
 
